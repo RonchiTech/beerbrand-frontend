@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
+import GoogleButton from 'react-google-button';
 function App() {
+  const fetchAuthUser = () => {
+    fetch('http://localhost:3000/api/auth/user', { credentials: 'include' });
+  };
+  const signInWithGoogle = async () => {
+    let timer;
+    const googleLoginUrl = 'http://localhost:3000/api/login/google';
+    const newWindow = window.open(
+      googleLoginUrl,
+      '_blank',
+      'width:500,height:600'
+    );
+    if (newWindow) {
+      timer = setInterval(() => {
+        if (newWindow.closed) {
+          console.log('You will be authenticated!');
+          fetchAuthUser();
+          if (timer) clearInterval(timer);
+        }
+      });
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <GoogleButton onClick={signInWithGoogle} />
     </div>
   );
 }
