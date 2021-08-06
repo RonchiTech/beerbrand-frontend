@@ -1,9 +1,10 @@
-import { useEffect, useState, useHistory, Fragment } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { Route } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
+
+
 
 const Home = () => {
-  const history = useHistory;
+
   const [user, setUser] = useState({});
   useEffect(() => {
     const fetchData = async () => {
@@ -26,28 +27,27 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const fetchAuthUser = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/auth/user', {
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw response.statusText;
-      }
-      const result = await response.json();
-      console.log(result);
+  // const fetchAuthUser = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:3000/api/auth/user', {
+  //       method: 'GET',
+  //       credentials: 'include',
+  //       mode: 'cors',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+  //     if (!response.ok) {
+  //       throw response.statusText;
+  //     }
+  //     const result = await response.json();
+  //     console.log(result);
 
-      setUser({ email: result.email });
-    } catch (err) {
-      console.log('ERR:', err);
-      history.push('/login/error');
-    }
-  };
+  //     setUser({ email: result.email });
+  //   } catch (err) {
+  //     console.log('ERR:', err);
+  //   }
+  // };
   const logout = async () => {
     try {
       const response = await fetch('http://localhost:3000/api/auth/logout', {
@@ -67,36 +67,34 @@ const Home = () => {
       setUser({ email: undefined });
     } catch (err) {
       console.log('ERR:', err);
-      history.push('/login/error');
+  
     }
   };
-  const signInWithGoogle = async () => {
-    let timer;
-    const googleLoginUrl = 'http://localhost:3000/api/login/google';
-    const newWindow = window.open(
-      googleLoginUrl,
-      '_blank',
-      'width:500,height:600'
-    );
-    if (newWindow) {
-      timer = setInterval(() => {
-        if (newWindow.closed) {
-          console.log('You will be authenticated!');
-          fetchAuthUser();
-          if (timer) clearInterval(timer);
-        }
-      }, 500);
-    }
-  };
+  // const signInWithGoogle = async () => {
+  //   let timer;
+  //   const googleLoginUrl = 'http://localhost:3000/api/login/google';
+  //   const newWindow = window.open(
+  //     googleLoginUrl,
+  //     '_blank',
+  //     'width:500,height:600'
+  //   );
+  //   if (newWindow) {
+  //     timer = setInterval(() => {
+  //       if (newWindow.closed) {
+  //         console.log('You will be authenticated!');
+  //         fetchAuthUser();
+  //         if (timer) clearInterval(timer);
+  //       }
+  //     }, 500);
+  //   }
+  // };
   let display = 'Loading...';
-  display = user.email ? (
+  display = (
     <div>
-      <h2>Welcome {user.email}</h2>
-      <button onClick={logout}>Logout</button>
+      <h2>Welcome {user.email ? user.email : 'guest'}</h2>
+      { user.email ? <button onClick={logout}>Logout</button> : null}
     </div>
-  ) : (
-    <GoogleButton onClick={signInWithGoogle} />
-  );
+  ) 
   return (
     <Fragment>
       {display}

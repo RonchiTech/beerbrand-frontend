@@ -1,0 +1,19 @@
+.nav_containter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ul {
+    list-style: none;
+  }
+  .nav_brand {
+    font-size: 50px;
+  }
+  .nav_menu {
+    display: flex;
+    justify-content: flex-end;
+    li {
+      margin: 0 15px;
+      font-size: 20px;
+    }
+  }
+}

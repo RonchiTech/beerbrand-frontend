@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const   LoginSuccess = () => {
+const LoginSuccess = () => {
   useEffect(() => {
     setTimeout(() => {
       window.close();
