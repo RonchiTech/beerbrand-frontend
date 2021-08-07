@@ -1,10 +1,23 @@
+import { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import * as action from './store/actions';
+
 import LoginSuccess from './app/containers/loginSuccess';
+
 import Home from './pages/home';
 import Login from './pages/login';
-import './App.scss';
+
 import Navigation from './components/Navigation/Navigation';
-function App() {
+
+import './App.scss';
+
+function App({ onAuth }) {
+  useEffect(() => {
+    onAuth();
+    
+  });
   return (
     <div>
       <Navigation />
@@ -20,4 +33,16 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.authReducer.email !== null,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: () => dispatch(action.auth()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

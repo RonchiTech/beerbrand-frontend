@@ -17,3 +17,13 @@
     }
   }
 }
+
+.display__loading {
+  display: inline-block;
+  width: 100px;
+  padding: 15px;
+  background-color: #201e1e85;
+}
+.display__loading::after {
+  content: '  ';
+}
