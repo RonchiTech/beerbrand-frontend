@@ -1,1 +1,1 @@
-export { auth, authStart, logout } from './authAction';
+export { auth, authStart, logout, authCheck } from './authAction';

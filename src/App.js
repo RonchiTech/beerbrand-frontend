@@ -7,11 +7,12 @@ import * as action from './store/actions';
 import LoginSuccess from './app/containers/loginSuccess';
 
 import Home from './pages/home';
-import Login from './pages/login';
+import Account from './pages/account';
 
 import Navigation from './components/Navigation/Navigation';
 
 import './App.scss';
+
 
 function App({ onAuth }) {
   useEffect(() => {
@@ -27,7 +28,7 @@ function App({ onAuth }) {
         </Route> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/login/success" component={LoginSuccess} />
-        <Route path="/login" component={Login} />
+        <Route path="/account" component={Account} />
       </Switch>
     </div>
   );

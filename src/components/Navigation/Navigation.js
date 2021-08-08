@@ -10,7 +10,7 @@ const Navigation = ({ fullName, isLoading }) => {
   } else if (!isLoading && fullName) {
     display = fullName;
   } else {
-    display = 'login';
+    display = 'account';
   }
   return (
     <nav className={classes.nav_containter}>
@@ -21,7 +21,7 @@ const Navigation = ({ fullName, isLoading }) => {
       </ul>
       <ul className={classes.nav_menu}>
         <li>cart</li>
-        <Link to="/login">
+        <Link to="/account">
           <li>{display}</li>
         </Link>
       </ul>

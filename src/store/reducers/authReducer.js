@@ -27,6 +27,13 @@ const reducers = (state = initialState, action) => {
             ...state,
             isLoading: false
         }
+    case actionTypes.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        email: null,
+        fullName: null,
+        imageUrl: null,
+      };
     default:
       return state;
   }

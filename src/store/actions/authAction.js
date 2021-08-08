@@ -55,6 +55,35 @@ export const authFailed = () => {
     type: actionTypes.AUTH_FAILED,
   };
 };
+
+export const authCheck = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch('http://localhost:3000/api/auth/user', {
+        method: 'GET',
+        credentials: 'include',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('authCheck response', response);
+      if (!response.ok) {
+        throw response.statusText;
+      }
+      const result = await response.json();
+      console.log('authCheck result', result);
+      localStorage.setItem('email', result.email);
+      localStorage.setItem('fullName', result.fullName);
+      localStorage.setItem('imageUrl', result.picture);
+      dispatch(authSuccess(result));
+      // setUser({ email: result.email });
+    } catch (err) {
+      console.log('authCheck error:', err);
+    }
+  };
+};
+
 export const logout = () => {
   return async (dispatch) => {
     try {
@@ -72,8 +101,14 @@ export const logout = () => {
       const result = await response.json();
       console.log('logout', result);
       localStorage.clear();
+      dispatch(logoutSuccess())
     } catch (err) {
       console.log('ERR:', err);
     }
   };
 };
+export const logoutSuccess = () => {
+  return {
+    type: actionTypes.LOGOUT_SUCCESS
+  }
+}
