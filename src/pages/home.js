@@ -1,9 +1,8 @@
-import { useEffect, useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import * as action from '../store/actions/';
 import { connect } from 'react-redux';
 const Home = ({ onLogout, email }) => {
-  const [user, setUser] = useState({});
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {

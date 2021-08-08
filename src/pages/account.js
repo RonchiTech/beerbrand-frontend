@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import GoogleButton from 'react-google-button';
+import GoogleButton from '../components/Authentication/SigninWithGoogle';
 import * as action from '../store/actions/';
 const Account = ({ email, fullName, onAuthCheck }) => {
-  const history = useHistory();
+
   // const [user, setUser] = useState({});
   useEffect(() => {
     onAuthCheck();
   }, [onAuthCheck]);
 
-  const fetchAuthUser = () => {
-    onAuthCheck();
-  };
+
   //   const logout = async () => {
   //     try {
   //       const response = await fetch('http://localhost:3000/api/auth/logout', {
@@ -34,26 +31,9 @@ const Account = ({ email, fullName, onAuthCheck }) => {
   //       console.log('ERR:', err);
   //     }
   //   };
-  const signInWithGoogle = async () => {
-    let timer;
-    const googleLoginUrl = 'http://localhost:3000/api/login/google';
-    const newWindow = window.open(
-      googleLoginUrl,
-      '_blank',
-      'width:500,height:600'
-    );
-    if (newWindow) {
-      timer = setInterval(() => {
-        if (newWindow.closed) {
-          console.log('You will be authenticated!');
-          fetchAuthUser();
-          if (timer) clearInterval(timer);
-        }
-      }, 500);
-    }
-  };
+  
   let display = (
-    <GoogleButton className="google_btn" onClick={signInWithGoogle} />
+    <GoogleButton />
   );
   if (email) {
     display = <h2>Profile: {email}</h2>;
